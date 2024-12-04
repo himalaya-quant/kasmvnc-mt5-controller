@@ -1,4 +1,4 @@
-import { env } from "process";
+import { argv } from "process";
 import puppeteer from "puppeteer";
 import { sleep } from "./utils";
 import {
@@ -7,9 +7,14 @@ import {
   loadUserServer,
 } from "./actions";
 
+const args = argv.slice(2);
+const MT5_SERVER = args
+  .find((arg) => arg.startsWith("mt5_server="))
+  ?.split("=")[1];
+
 console.log(`-`.repeat(20));
 console.log(`- KASMVNC MT5 Controller config`);
-console.log(`-- Server: ${env.MT5_SERVER}`);
+console.log(`-- Server: ${MT5_SERVER}`);
 console.log(`-`.repeat(20));
 
 (async () => {
@@ -31,7 +36,7 @@ console.log(`-`.repeat(20));
   await sleep(2);
 
   await autoLoginOnPreselectedAccount(page);
-  await loadUserServer(page, env.MT5_SERVER);
+  await loadUserServer(page, MT5_SERVER);
   await sleep(10);
   await acceptGeckoInstall(page);
 
