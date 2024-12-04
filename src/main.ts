@@ -1,3 +1,4 @@
+import { env } from "process";
 import puppeteer from "puppeteer";
 import { sleep } from "./utils";
 import {
@@ -25,7 +26,7 @@ import {
   await sleep(2);
 
   await autoLoginOnPreselectedAccount(page);
-  await loadUserServer(page, "ICMarketsEU-Demo");
+  await loadUserServer(page, env.MT5_SERVER);
   await sleep(10);
   await acceptGeckoInstall(page);
 
