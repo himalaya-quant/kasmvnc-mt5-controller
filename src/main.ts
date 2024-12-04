@@ -11,6 +11,7 @@ import {
   // Launch the browser and open a new blank page
   const browser = await puppeteer.launch({
     headless: true,
+    args: ["--no-sandbox"],
   });
   const page = await browser.newPage();
 
