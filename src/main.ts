@@ -7,6 +7,11 @@ import {
   loadUserServer,
 } from "./actions";
 
+console.log(`-`.repeat(20));
+console.log(`- KASMVNC MT5 Controller config`);
+console.log(`-- Server: ${env.MT5_SERVER}`);
+console.log(`-`.repeat(20));
+
 (async () => {
   // Launch the browser and open a new blank page
   const browser = await puppeteer.launch({
