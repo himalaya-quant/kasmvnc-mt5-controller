@@ -11,10 +11,17 @@ const args = argv.slice(2);
 const MT5_SERVER = args
   .find((arg) => arg.startsWith("mt5_server="))
   ?.split("=")[1];
+const KASMVNC_USERNAME = args
+  .find((arg) => arg.startsWith("kasmvnc_username="))
+  ?.split("=")[1];
+const KASMVNC_PASSWORD = args
+  .find((arg) => arg.startsWith("kasmvnc_password="))
+  ?.split("=")[1];
 
 console.log(`-`.repeat(20));
 console.log(`- KASMVNC MT5 Controller config`);
 console.log(`-- Server: ${MT5_SERVER}`);
+console.log(`-- KASMVNC Username: ${USER}`);
 console.log(`-`.repeat(20));
 
 (async () => {
@@ -28,7 +35,12 @@ console.log(`-`.repeat(20));
   // Set screen size.
   await page.setViewport({ width: 1920, height: 1080 });
 
-  // Navigate the page to a URL.
+  if (KASMVNC_PASSWORD && KASMVNC_USERNAME)
+    await page.authenticate({
+      username: KASMVNC_USERNAME,
+      password: KASMVNC_PASSWORD,
+    });
+
   await page.goto("http://localhost:3000");
 
   // Print the full title.
