@@ -21,7 +21,13 @@ const KASMVNC_PASSWORD = args
 console.log(`-`.repeat(20));
 console.log(`- KASMVNC MT5 Controller config`);
 console.log(`-- Server: ${MT5_SERVER}`);
-console.log(`-- KASMVNC Username: ${USER}`);
+console.log(`-- KASMVNC Username: ${KASMVNC_USERNAME}`);
+console.log(
+  `-- KASMVNC Password: ${KASMVNC_PASSWORD.replaceAll(
+    new RegExp(".", "g"),
+    "*"
+  )}`
+);
 console.log(`-`.repeat(20));
 
 (async () => {
