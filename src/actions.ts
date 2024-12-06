@@ -1,6 +1,26 @@
 import { Page } from "puppeteer";
 import { sleep } from "./utils";
 
+export async function markInstanceAsReady(
+  api_url: string,
+  jwt: string
+): Promise<boolean> {
+  const headers = new Headers();
+  headers.append("Authorization", `Bearer ${jwt}`);
+  const resp = await fetch(api_url, { method: "POST", headers });
+  if (resp.status >= 300) {
+    console.log("#".repeat(50));
+    console.log(`# ⚠️ Error marking instance as ready: ${resp.statusText}`);
+    console.log("#".repeat(50));
+    return Promise.resolve(false);
+  }
+
+  console.log("#".repeat(50));
+  console.log(`# ✅ Instance successfully marked as ready`);
+  console.log("#".repeat(50));
+  return Promise.resolve(true);
+}
+
 export async function acceptGeckoInstall(page: Page): Promise<void> {
   page.keyboard.press("Enter");
   await sleep(0.3);

@@ -5,9 +5,16 @@ import {
   acceptGeckoInstall,
   autoLoginOnPreselectedAccount,
   loadUserServer,
+  markInstanceAsReady,
 } from "./actions";
 
 const args = argv.slice(2);
+const INSTANCE_JWT = args
+  .find((arg) => arg.startsWith("instance_jwt="))
+  ?.split("=")[1];
+const HQ_INSTANCES_MANAGER_URL = args
+  .find((arg) => arg.startsWith("hq_instances_manager_url="))
+  ?.split("=")[1];
 const MT5_SERVER = args
   .find((arg) => arg.startsWith("mt5_server="))
   ?.split("=")[1];
@@ -22,6 +29,10 @@ console.log(`-`.repeat(20));
 console.log(`- KASMVNC MT5 Controller config`);
 console.log(`-- Server: ${MT5_SERVER}`);
 console.log(`-- KASMVNC Username: ${KASMVNC_USERNAME}`);
+console.log(`-- HQ Instances manager api: ${HQ_INSTANCES_MANAGER_URL}`);
+console.log(
+  `-- Instance JWT: ${INSTANCE_JWT.replaceAll(new RegExp(".", "g"), "*")}`
+);
 console.log(
   `-- KASMVNC Password: ${KASMVNC_PASSWORD.replaceAll(
     new RegExp(".", "g"),
@@ -57,6 +68,8 @@ console.log(`-`.repeat(20));
   await loadUserServer(page, MT5_SERVER);
   await sleep(30);
   await acceptGeckoInstall(page);
+  await sleep(60);
+  await markInstanceAsReady(HQ_INSTANCES_MANAGER_URL, INSTANCE_JWT);
 
   await browser.close();
 })();
