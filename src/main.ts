@@ -55,7 +55,7 @@ console.log(`-`.repeat(20));
 
   await autoLoginOnPreselectedAccount(page);
   await loadUserServer(page, MT5_SERVER);
-  await sleep(10);
+  await sleep(30);
   await acceptGeckoInstall(page);
 
   await browser.close();
