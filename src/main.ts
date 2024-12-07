@@ -62,7 +62,7 @@ console.log(`-`.repeat(20));
 
   // Print the full title.
   console.log("Page loaded");
-  await sleep(2);
+  await sleep(5);
 
   await autoLoginOnPreselectedAccount(page);
   await loadUserServer(page, MT5_SERVER);
