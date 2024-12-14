@@ -58,7 +58,10 @@ console.log(`-`.repeat(20));
       password: KASMVNC_PASSWORD,
     });
 
-  await page.goto("http://localhost:3000");
+  await page.goto("http://localhost:3000", {
+    waitUntil: "networkidle2",
+    timeout: 0,
+  });
 
   // Print the full title.
   console.log("Page loaded");
